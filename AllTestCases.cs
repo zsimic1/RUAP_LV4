@@ -9,6 +9,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumTests
 {
+
     [TestFixture]
     public class Prijava1_2
     {
@@ -108,6 +109,8 @@ namespace SeleniumTests
         private StringBuilder verificationErrors;
         private string baseURL;
         private bool acceptNextAlert = true;
+        private Random rand = new Random();
+
 
         [SetUp]
         public void SetupTest()
@@ -145,7 +148,7 @@ namespace SeleniumTests
             driver.FindElement(By.Id("input-lastname")).SendKeys("Šimić");
             driver.FindElement(By.Id("input-email")).Click();
             driver.FindElement(By.Id("input-email")).Clear();
-            driver.FindElement(By.Id("input-email")).SendKeys("fakemail@gmail.com");
+            driver.FindElement(By.Id("input-email")).SendKeys("username"+ rand.Next(1000) + "@gmail.com");
             driver.FindElement(By.Id("input-telephone")).Click();
             driver.FindElement(By.Id("input-telephone")).Clear();
             driver.FindElement(By.Id("input-telephone")).SendKeys("929192931");
@@ -308,6 +311,7 @@ namespace SeleniumTests
         private StringBuilder verificationErrors;
         private string baseURL;
         private bool acceptNextAlert = true;
+        
 
         [SetUp]
         public void SetupTest()
@@ -315,6 +319,8 @@ namespace SeleniumTests
             driver = new FirefoxDriver();
             baseURL = "https://www.google.com/";
             verificationErrors = new StringBuilder();
+
+            
         }
 
         [TearDown]
@@ -332,7 +338,7 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void TheUntitledTestCaseTest()
+        public void TheKupnjaTabaTest()
         {
             driver.Navigate().GoToUrl("https://demo.opencart.com/index.php?route=common/home");
             driver.FindElement(By.XPath("//div[@id='top-links']/ul/li[2]/a/span")).Click();
@@ -346,7 +352,9 @@ namespace SeleniumTests
             driver.FindElement(By.XPath("//div[@id='content']/div/div[2]/div")).Click();
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
             driver.FindElement(By.LinkText("Tablets")).Click();
-            driver.FindElement(By.XPath("//img[@alt='Samsung Galaxy Tab 10.1']")).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath("//*[@id='content']/div[2]/div/div/div[2]/div[1]/h4/a")).Click();
+            Thread.Sleep(2000);
             driver.FindElement(By.Id("button-cart")).Click();
         }
         private bool IsElementPresent(By by)
@@ -444,12 +452,14 @@ namespace SeleniumTests
             driver.FindElement(By.Id("input-password")).SendKeys(Keys.Enter);
             driver.FindElement(By.LinkText("Tablets")).Click();
             driver.FindElement(By.XPath("(//button[@type='button'])[9]")).Click();
+            Thread.Sleep(2000);
             driver.FindElement(By.Id("cart-total")).Click();
             driver.FindElement(By.XPath("//div[@id='cart']/ul/li[2]/div/p/a/strong")).Click();
             driver.FindElement(By.LinkText("Estimate Shipping & Taxes")).Click();
             driver.FindElement(By.Id("input-country")).Click();
             new SelectElement(driver.FindElement(By.Id("input-country"))).SelectByText("Croatia");
             driver.FindElement(By.Id("input-zone")).Click();
+            Thread.Sleep(2000);
             new SelectElement(driver.FindElement(By.Id("input-zone"))).SelectByText("Osječko-baranjska");
             driver.FindElement(By.Id("input-zone")).Click();
             driver.FindElement(By.Id("input-postcode")).Click();
@@ -457,6 +467,7 @@ namespace SeleniumTests
             driver.FindElement(By.Id("input-postcode")).SendKeys("31000");
             driver.FindElement(By.XPath("//div[@id='collapse-shipping']/div/div")).Click();
             driver.FindElement(By.Id("button-quote")).Click();
+            Thread.Sleep(2000);
             driver.FindElement(By.XPath("//div[@id='modal-shipping']/div/div/div[2]/div/label")).Click();
             driver.FindElement(By.Id("button-shipping")).Click();
         }
